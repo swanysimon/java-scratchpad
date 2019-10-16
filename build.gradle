@@ -1,0 +1,39 @@
+plugins {
+    id "eclipse"
+    id "idea"
+    id "java"
+    id "net.ltgt.errorprone"
+}
+
+repositories {
+    mavenCentral()
+}
+
+group "com.github"
+
+wrapper {
+    gradleVersion = "${gradle_version}"
+}
+
+import com.github.scratchpad.BikeshedJavaPlugin
+import com.github.scratchpad.TestProgressLoggingPlugin
+
+apply plugin: "eclipse"
+apply plugin: "idea"
+apply plugin: BikeshedJavaPlugin
+apply plugin: TestProgressLoggingPlugin
+
+dependencies {
+    annotationProcessor("org.immutables:value:${immutables_version}")
+    compileOnly("org.immutables:value-annotations:${immutables_version}")
+
+    testAnnotationProcessor("org.immutables:value:${immutables_version}")
+    testCompileOnly("org.immutables:value-annotations:${immutables_version}")
+    testImplementation("org.assertj:assertj-core:${assertj_version}")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junit_version}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junit_version}")
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+}

@@ -1,0 +1,6 @@
+pluginManagement.plugins {
+    id "net.ltgt.errorprone" version "${errorprone_plugin_version}"
+}
+
+rootProject.name = "scratchpad"
+
